@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ÉLOQUENCE — Coach de prise de parole</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#101923">
+<style>
+:root{font-family:Inter,system-ui,-apple-system,sans-serif;color:#f2f1ed;background:#101923}*{box-sizing:border-box}body{margin:0}main{max-width:1080px;margin:auto;padding:26px 18px 80px}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;gap:10px}.brand{font-weight:900;letter-spacing:.1em;font-size:20px}.brand span{color:#d8b879}.tag{font-size:12px;color:#9faebc}.hero{padding:30px;background:linear-gradient(120deg,#243a4a,#172633);border:1px solid #385063;border-radius:24px;margin-bottom:20px}h1{font-size:clamp(28px,5vw,45px);line-height:1.12;margin:0 0 12px}h2{font-size:21px;margin:0 0 16px}p{color:#b9c7d2;line-height:1.6}.hero p{max-width:680px}.pill{display:inline-block;background:#334957;color:#eed29c;padding:7px 11px;border-radius:30px;font-size:12px;margin-bottom:14px}.layout{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{background:#1a2935;border:1px solid #344755;border-radius:20px;padding:23px;margin-bottom:18px}label{display:block;color:#e6e9e8;font-size:13px;font-weight:700;margin:16px 0 8px}textarea,input,select{width:100%;background:#101e2a;border:1px solid #425463;color:white;padding:13px;border-radius:11px;font:inherit}textarea{min-height:125px;resize:vertical}button{border:0;border-radius:12px;padding:13px 17px;background:#d9b978;color:#14212b;font-weight:800;cursor:pointer;font-size:14px}button.secondary{background:#344a59;color:#f5f7f7}button:disabled{opacity:.4;cursor:not-allowed}.buttons{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.note{font-size:12px;color:#9caebb}.speech{white-space:pre-wrap;line-height:1.7;color:#e6e8e8}.muted{color:#a7bac7}.metric{display:flex;align-items:center;gap:12px;margin:11px 0}.metric b{width:125px;font-size:13px}.bar{flex:1;height:9px;background:#344651;border-radius:30px;overflow:hidden}.fill{height:100%;background:#d9b978;border-radius:30px}.score{font-size:46px;font-weight:900;color:#e9c98c}.hidden{display:none}.status{display:inline-block;width:9px;height:9px;border-radius:50%;background:#667e8a;margin-right:6px}.status.live{background:#ef6c69;box-shadow:0 0 0 6px #ef6c6925}.quote{border-left:3px solid #d9b978;padding-left:14px;color:#d8e0e4}footer{text-align:center;font-size:12px;color:#8096a5;margin-top:20px}@media(max-width:750px){.layout{grid-template-columns:1fr}.panel{padding:18px}.hero{padding:23px}header{align-items:start;flex-direction:column}}</style></head>
+<body><main><header><div class="brand">ÉLOQUENCE <span>AI</span></div><div class="tag">Ton coach oral · Prototype utilisable</div></header>
+<section class="hero"><div class="pill">PARLE AVEC TA PROPRE VOIX</div><h1>Plus clair. Plus convaincant.<br> Toujours toi-même.</h1><p>Prépare ton intervention, entraîne-toi à voix haute et reçois un bilan. Ton accent, ton humour et ta personnalité ne sont pas des défauts à corriger.</p></section>
+<div class="layout"><div><section class="panel"><h2>01 · Prépare ton intervention</h2>
+<label for="subject">Ton sujet ou ton projet</label><textarea id="subject" placeholder="Ex. Présenter ma comédie musicale à des partenaires..."></textarea>
+<label for="projectFile">Ou importer un document</label><input id="projectFile" type="file" accept=".txt,.md,.pdf,.docx,.html" aria-label="Importer un fichier de projet">
+<p class="note" id="fileStatus">Formats : TXT, MD, HTML, PDF, DOCX. Le contenu sera ajouté au sujet pour préparer ton intervention. Les fichiers PDF et Word nécessitent une connexion Internet pour charger les lecteurs.</p>
+<label for="audience">À qui t'adresses-tu ?</label><input id="audience" placeholder="Ex. Un jury, des investisseurs, des amis">
+<label for="goal">Ton objectif</label><select id="goal"><option value="convaincre">Convaincre</option><option value="expliquer">Expliquer</option><option value="inspirer">Inspirer</option><option value="mobiliser">Mobiliser</option></select>
+<label for="style">Ton style naturel</label><select id="style"><option value="chaleureux">Chaleureux et spontané</option><option value="direct">Direct et précis</option><option value="passionné">Passionné et expressif</option><option value="posé">Calme et posé</option><option value="drôle">Léger, avec humour</option></select>
+<label for="length">Durée cible</label><select id="length"><option value="60">1 minute</option><option value="120" selected>2 minutes</option><option value="300">5 minutes</option></select>
+<div class="buttons"><button id="prepare">Construire mon plan</button><button class="secondary" id="sample">Exemple</button></div></section>
+<section class="panel"><h2>02 · Ton plan de parole</h2><div id="outline" class="speech muted">Renseigne ton sujet puis sélectionne « Construire mon plan ».</div><div class="buttons"><button class="secondary" id="speak">🔊 Écouter les conseils</button></div><p class="note">L'application propose un plan adaptable, pas un discours imposé.</p></section></div>
+<div><section class="panel"><h2>03 · Simulateur de questions</h2>
+<p>Un jury fictif t'interroge sur ton projet. Réponds avec tes mots, à l'oral ou par écrit.</p>
+<label for="jury">Interlocuteur</label><select id="jury"><option value="mecene">Mécène / partenaire</option><option value="jury">Jury exigeant</option><option value="journaliste">Journaliste</option><option value="public">Public</option></select>
+<label for="difficulty">Difficulté</label><select id="difficulty"><option value="simple">Bienveillant</option><option value="normal" selected>Professionnel</option><option value="difficile">Difficile</option></select>
+<div class="buttons"><button id="startQuestions">Commencer la simulation</button><button id="nextQuestion" class="secondary" disabled>Question suivante</button></div>
+<div id="questionArea" class="hidden" aria-live="polite"><p class="pill" id="questionCounter"></p><h2 id="questionText"></h2><div class="buttons"><button id="hearQuestion" class="secondary">🔊 Écouter</button><button id="answerMic" class="secondary">🎙 Répondre au micro</button></div>
+<label for="questionAnswer">Ta réponse</label><textarea id="questionAnswer" placeholder="Ta réponse orale transcrite ou écrite…"></textarea>
+<button id="evaluateAnswer">Évaluer ma réponse</button><div id="answerFeedback"></div></div>
+<p class="note">Questions contextualisées à partir de ton sujet et de ton document, selon des scénarios prédéfinis. L'évaluation reste indicative.</p></section><section class="panel"><h2>04 · Entraîne-toi à l'oral</h2><p>Enregistre ta prise de parole avec le micro, ou colle une transcription pour obtenir une première évaluation.</p><div><span id="dot" class="status"></span><span id="recordStatus" class="note">Micro inactif</span> · <strong id="clock">00:00</strong></div>
+<div class="buttons"><button id="record">🎙 Commencer</button><button id="stop" class="secondary" disabled>Arrêter</button></div>
+<label for="transcript">Ta prestation (transcription modifiable)</label><textarea id="transcript" style="min-height:190px" placeholder="La transcription apparaît ici si ton navigateur prend en charge la reconnaissance vocale. Tu peux aussi coller ton texte."></textarea>
+<p class="note">La reconnaissance vocale dépend du navigateur et peut utiliser un service externe. N'enregistre pas de propos confidentiels. Aucun audio n'est conservé par cette page.</p>
+<div class="buttons"><button id="analyze">Analyser ma prestation</button><button id="reset" class="secondary">Réinitialiser</button></div></section>
+<section class="panel"><h2>05 · Ton bilan personnalisé</h2><div id="results" class="muted">Ton bilan apparaîtra ici après l'entraînement.</div></section>
+<section class="panel"><h2>Ta progression</h2><div id="history" class="muted">Aucun entraînement enregistré.</div><p class="note">Seules les notes sont enregistrées localement sur cet appareil. Tu peux effacer l'historique.</p><button id="clear" class="secondary">Effacer l'historique</button></section></div></div>
+<footer>ÉLOQUENCE AI · Version de démonstration locale · Analyse indicative, sans intelligence artificielle connectée</footer></main>
+<script>
+const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let started=0,elapsed=0,timer=null,recognition=null,outlineText='';
+
+async function loadLibrary(url, globalName) {
+ if(window[globalName]) return window[globalName];
+ return new Promise((resolve,reject)=>{
+  let script=document.createElement('script');script.src=url;script.onload=()=>window[globalName]?resolve(window[globalName]):reject(new Error('Bibliothèque indisponible'));script.onerror=()=>reject(new Error('Chargement impossible : vérifie ta connexion Internet'));document.head.appendChild(script);
+ });
+}
+$('projectFile').addEventListener('change',async e=>{
+ const file=e.target.files&&e.target.files[0];if(!file)return;
+ const status=$('fileStatus');status.textContent='Lecture de « '+file.name+' » en cours…';
+ if(file.size>12*1024*1024){status.textContent='Le fichier dépasse 12 Mo. Choisis un document plus petit.';return}
+ try {
+  const ext=file.name.split('.').pop().toLowerCase();let content='';
+  if(['txt','md','html'].includes(ext)){
+   content=await file.text();
+   if(ext==='html'){const doc=new DOMParser().parseFromString(content,'text/html');doc.querySelectorAll('script,style').forEach(n=>n.remove());content=doc.body.textContent||''}
+  } else if(ext==='docx'){
+   const mammoth=await loadLibrary('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.9.0/mammoth.browser.min.js','mammoth');
+   const out=await mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});content=out.value;
+  } else if(ext==='pdf'){
+   const pdfjs=await loadLibrary('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js','pdfjsLib');
+   pdfjs.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+   const pdf=await pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+   let pages=[];for(let i=1;i<=Math.min(pdf.numPages,40);i++){let pg=await pdf.getPage(i);let text=await pg.getTextContent();pages.push(text.items.map(x=>x.str).join(' '))}
+   content=pages.join('\n\n');
+   if(pdf.numPages>40)status.textContent='Seules les 40 premières pages ont été importées.';
+  }else throw new Error('Format non pris en charge');
+  content=content.trim();
+  if(!content)throw new Error('Aucun texte détecté. Si le PDF est scanné, copie son texte manuellement.');
+  const limit=18000;const cut=content.length>limit;
+  const existing=$('subject').value.trim();
+  $('subject').value=(existing?existing+'\n\n':'')+'DOCUMENT : '+file.name+'\n'+content.slice(0,limit);
+  status.textContent='Document « '+file.name+' » importé ('+Math.min(content.length,limit)+' caractères)'+(cut?' — texte limité à 18 000 caractères.':'')+'. Tu peux modifier le contenu ci-dessus.';
+  saveFields();
+ }catch(err){status.textContent='Import impossible : '+err.message+'. Tu peux copier-coller le contenu dans le champ sujet.'}
+});
+
+
+let questions=[],qi=0,qr=null;
+function startSimulation(){
+ const subject=$('subject').value.trim();if(!subject){alert('Décris ou importe ton projet avant de commencer.');return}
+ const lower=subject.toLowerCase(),art=/spectacle|musique|festival|théâtre|comédie musicale|concert|danse/.test(lower),app=/application|entreprise|produit|service|client/.test(lower);
+ const specific=art?'Comment allez-vous attirer des spectateurs et construire votre diffusion ?':app?'Quel problème concret résolvez-vous pour vos utilisateurs ?':'À quel besoin concret votre projet répond-il ?';
+ const interlocutor=$('jury').value,role={mecene:'Pourquoi devrions-nous soutenir financièrement votre projet ?',jury:'Quels éléments prouvent que votre projet est réalisable ?',journaliste:'Quelle histoire personnelle vous a donné envie de lancer ce projet ?',public:'Pourquoi ce projet devrait-il nous intéresser ?'}[interlocutor];
+ const easy=['Pouvez-vous présenter votre projet en une minute ?', 'Pourquoi ce projet vous tient-il à cœur ?',specific,'À qui s’adresse-t-il ?', 'Que souhaitez-vous obtenir de cette rencontre ?'];
+ const normal=[easy[0],role,specific,'Quelle est la prochaine étape concrète de votre projet ?','Quel est le principal obstacle et comment comptez-vous le surmonter ?'];
+ const hard=[easy[0],role,'Qu’est-ce qui distingue votre projet de ceux déjà existants ?','Si votre budget était réduit de moitié, que garderiez-vous ?','Pourquoi faudrait-il vous faire confiance plutôt qu’à un autre porteur de projet ?'];
+ questions=($('difficulty').value==='simple'?easy:$('difficulty').value==='difficile'?hard:normal);
+ qi=0;showQuestion();
+}
+function showQuestion(){
+ $('questionArea').classList.remove('hidden');
+ if(qi>=questions.length){$('questionCounter').textContent='Simulation terminée';$('questionText').textContent='Bravo ! Tu as répondu aux cinq questions.';$('nextQuestion').disabled=true;$('hearQuestion').disabled=true;$('answerMic').disabled=true;return}
+ $('questionCounter').textContent='Question '+(qi+1)+' / '+questions.length;
+ $('questionText').textContent=questions[qi];$('questionAnswer').value='';$('answerFeedback').textContent='';$('nextQuestion').disabled=true;$('hearQuestion').disabled=false;$('answerMic').disabled=false;
+}
+$('startQuestions').onclick=startSimulation;
+$('nextQuestion').onclick=()=>{qi++;showQuestion()};
+$('hearQuestion').onclick=()=>{if(!('speechSynthesis'in window)){alert('Lecture vocale indisponible.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(questions[qi]);u.lang='fr-FR';u.rate=.92;speechSynthesis.speak(u)};
+$('answerMic').onclick=()=>{
+ if(qr){try{qr.stop()}catch(e){}qr=null;return}
+ let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Transcription vocale indisponible sur ce navigateur. Tu peux écrire ta réponse.');return}
+ try{let r=new SR();qr=r;r.lang='fr-FR';r.continuous=true;r.interimResults=true;let done=$('questionAnswer').value.trim();
+ r.onresult=e=>{let interim='';for(let i=e.resultIndex;i<e.results.length;i++){let t=e.results[i][0].transcript;if(e.results[i].isFinal)done+=(done?' ':'')+t;else interim+=t}$('questionAnswer').value=done+(interim?' '+interim:'')};
+ r.onend=()=>{qr=null;$('answerMic').textContent='🎙 Répondre au micro'};r.onerror=e=>{$('answerFeedback').textContent='Erreur micro : '+e.error};
+ r.start();$('answerMic').textContent='■ Arrêter le micro'}catch(e){alert(e.message)}
+};
+$('evaluateAnswer').onclick=()=>{
+ let a=$('questionAnswer').value.trim(),n=a.split(/\s+/).length;if(n<10){$('answerFeedback').textContent='Développe ta réponse sur au moins dix mots.';return}
+ let concrete=/par exemple|concrètement|notamment|parce que|nous avons|je vais|nous allons|euros|€|mois|année|spectateur|public|partenaire|utilisateur/i.test(a);
+ let score=Math.min(95,Math.round(48+Math.min(28,n/3)+(concrete?18:0)));
+ let tips=[];if(n<35)tips.push('Développe ton argument.');if(!concrete)tips.push('Ajoute un exemple concret, une échéance ou un résultat attendu.');if(!tips.length)tips.push('Bonne base : travaille maintenant les silences et la présence orale.');
+ $('answerFeedback').innerHTML='<p><strong>Retour indicatif : '+score+'/100</strong></p><p>'+tips.join(' ')+'</p><p class="note">Cette note repose sur des indices textuels, pas sur une analyse de la voix ou de la pertinence réelle de ton argument.</p>';
+ $('nextQuestion').disabled=false;
+};
+
+function prep(){let subject=$('subject').value.trim(),audience=$('audience').value.trim()||'ton public',goal=$('goal').value,style=$('style').value;if(!subject){alert('Indique ton sujet.');return}
+let first=subject.split(/[.!?]/)[0].trim();outlineText=`OUVERTURE — 15 % du temps\nCommence par une question, une situation vécue ou une image concrète liée à « ${first} ». Parle comme tu le ferais naturellement.\n\nIDÉE CENTRALE — 20 %\nExplique en une phrase ce que tu veux transmettre et pourquoi cela compte pour ${audience}.\n\nDEUX ARGUMENTS — 45 %\n1. Donne un fait, un exemple ou une expérience personnelle.\n2. Explique le bénéfice concret pour ton auditoire.\n\nTOUCHE PERSONNELLE — 10 %\nAjoute une anecdote ou un sourire si cela te ressemble. Ne force jamais une plaisanterie.\n\nCONCLUSION — 10 %\nRésume ton idée et formule une demande ou une invitation précise.\n\nTON INTENTION : ${goal}. TON STYLE : ${style}.`;
+$('outline').textContent=outlineText;saveFields()}
+$('prepare').onclick=prep;
+$('sample').onclick=()=>{$('subject').value='Je présente une comédie musicale sur Toussaint Louverture et je cherche des partenaires pour sa création.';$('audience').value='Des mécènes et des professionnels du spectacle';prep()};
+$('speak').onclick=()=>{if(!outlineText){alert('Prépare d’abord ton plan.');return}if(!('speechSynthesis'in window)){alert('Lecture vocale non disponible.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(outlineText);u.lang='fr-FR';u.rate=.93;speechSynthesis.speak(u)};
+function tick(){elapsed=Math.floor((Date.now()-started)/1000);$('clock').textContent=String(Math.floor(elapsed/60)).padStart(2,'0')+':'+String(elapsed%60).padStart(2,'0')}
+$('record').onclick=()=>{let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Reconnaissance vocale indisponible dans ce navigateur. Tu peux coller ton discours dans le champ pour obtenir un bilan.');return}
+try{recognition=new SR();recognition.lang='fr-FR';recognition.continuous=true;recognition.interimResults=true;let finalized=$('transcript').value.trim(),interim='';recognition.onresult=e=>{interim='';for(let i=e.resultIndex;i<e.results.length;i++){let t=e.results[i][0].transcript;if(e.results[i].isFinal)finalized+=(finalized?' ':'')+t;else interim+=t} $('transcript').value=finalized+(interim?' '+interim:'')};recognition.onerror=e=>{$('recordStatus').textContent='Micro : '+e.error;stopRecord()};recognition.onend=()=>{if(timer)stopRecord()};recognition.start();started=Date.now();elapsed=0;timer=setInterval(tick,500);$('record').disabled=true;$('stop').disabled=false;$('dot').classList.add('live');$('recordStatus').textContent='Enregistrement en cours'}catch(e){alert('Impossible de démarrer le micro : '+e.message)}};
+function stopRecord(){if(timer){clearInterval(timer);timer=null;tick()}if(recognition){let r=recognition;recognition=null;try{r.stop()}catch(e){}}$('record').disabled=false;$('stop').disabled=true;$('dot').classList.remove('live');$('recordStatus').textContent='Enregistrement terminé'}
+$('stop').onclick=stopRecord;
+function clamp(n){return Math.max(0,Math.min(100,Math.round(n)))}
+function analyze(){let txt=$('transcript').value.trim();if(txt.split(/\s+/).length<15){alert('Il faut au moins 15 mots pour une analyse indicative.');return}let words=txt.match(/[\p{L}\p{N}’'-]+/gu)||[],n=words.length,sentences=txt.split(/[.!?]+/).filter(s=>s.trim().length>4),longest=Math.max(...sentences.map(s=>s.trim().split(/\s+/).length),0),fillers=(txt.match(/\b(euh|heu|bah|ben|voilà|du coup|en fait|genre)\b/gi)||[]).length,repeat=words.map(w=>w.toLowerCase()).filter(w=>w.length>5),unique=new Set(repeat).size,questions=(txt.match(/\?/g)||[]).length,examples=(txt.match(/\b(par exemple|imaginez|imagine|concrètement|je me souviens|un jour)\b/gi)||[]).length,links=(txt.match(/\b(parce que|donc|ainsi|d'abord|ensuite|enfin|premièrement|finalement|pour conclure)\b/gi)||[]).length;
+let clarity=clamp(85-Math.max(0,longest-24)*1.3-fillers*3),structure=clamp(55+links*7+Math.min(sentences.length,7)*3),conviction=clamp(58+examples*10+questions*4+Math.min(links,3)*3),authenticity=clamp(70+Math.min(18,unique/Math.max(1,repeat.length)*18)),rhythm=elapsed?clamp(90-Math.abs(n/(elapsed/60)-135)*.55):null;
+let metrics=[['Clarté',clarity],['Structure',structure],['Conviction',conviction],['Expression personnelle',authenticity]];if(rhythm!==null)metrics.push(['Débit estimé',rhythm]);let score=Math.round(metrics.reduce((s,m)=>s+m[1],0)/metrics.length),tips=[];if(longest>30)tips.push('Raccourcis certaines phrases : une idée importante par phrase.');if(fillers>2)tips.push('Remplace quelques mots de remplissage par des silences.');if(!examples)tips.push('Ajoute un exemple vécu ou concret pour rendre ton propos plus convaincant.');if(!questions)tips.push('Essaie une question d’ouverture pour capter l’attention.');if(elapsed&&n/(elapsed/60)>165)tips.push('Ralentis légèrement et laisse respirer les idées fortes.');if(elapsed&&n/(elapsed/60)<95)tips.push('Essaie d’apporter davantage d’énergie à certains passages.');if(!tips.length)tips.push('Ton discours présente de bons repères. Travaille maintenant les silences et la connexion au public.');
+$('results').innerHTML='<div class="score">'+score+'<small style="font-size:17px;color:#9eb2bd"> / 100</small></div><p class="note">Estimation pédagogique fondée sur le texte'+(elapsed?' et le temps écoulé':'')+'. Elle ne mesure ni le charisme, ni l’accent, ni la qualité réelle de la voix.</p>'+metrics.map(([name,v])=>'<div class="metric"><b>'+esc(name)+'</b><div class="bar"><div class="fill" style="width:'+v+'%"></div></div><strong>'+v+'</strong></div>').join('')+'<p><b>'+n+' mots</b>'+(elapsed?' · '+Math.round(n/(elapsed/60))+' mots/min':'')+' · '+fillers+' hésitation(s) repérée(s)</p><p class="quote">Ta voix t’appartient. Ces conseils visent la compréhension et l’impact, jamais l’effacement de ta personnalité.</p><b>Pour ton prochain essai :</b><ul>'+tips.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>';
+try{let h=JSON.parse(localStorage.getItem('eloquence_history')||'[]');h.unshift({date:new Date().toLocaleDateString('fr-FR'),score,subject:$('subject').value.slice(0,65)});localStorage.setItem('eloquence_history',JSON.stringify(h.slice(0,20)));renderHistory()}catch(e){}}
+$('analyze').onclick=analyze;
+$('reset').onclick=()=>{stopRecord();$('transcript').value='';elapsed=0;$('clock').textContent='00:00';$('results').textContent='Ton bilan apparaîtra ici après l’entraînement.'};
+function renderHistory(){let h=[];try{h=JSON.parse(localStorage.getItem('eloquence_history')||'[]')}catch(e){}$('history').innerHTML=h.length?h.map(x=>'<p><b>'+x.score+'/100</b> · '+esc(x.date)+' · '+esc(x.subject||'Entraînement')+'</p>').join(''):'Aucun entraînement enregistré.'}
+$('clear').onclick=()=>{if(confirm('Effacer les notes enregistrées sur cet appareil ?')){localStorage.removeItem('eloquence_history');renderHistory()}};
+function saveFields(){try{localStorage.setItem('eloquence_fields',JSON.stringify(['subject','audience','goal','style','length'].map(id=>$(id).value)))}catch(e){}}
+try{let v=JSON.parse(localStorage.getItem('eloquence_fields')||'null');if(v)['subject','audience','goal','style','length'].forEach((id,i)=>$(id).value=v[i]||$(id).value)}catch(e){}
+renderHistory();
+</script></body></html>
